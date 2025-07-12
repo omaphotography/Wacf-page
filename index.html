@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>W.A.C.F NATIONAL - Homepage</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="icon" href="wacf.jpg" type="image/x-icon" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <h1 class="logo"></h1>
+      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo"></div>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="apply.html">Apply</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+  <div class="hero-bg" id="heroBg1"></div>
+  <div class="hero-bg" id="heroBg2"></div>
+  <div class="hero-content">
+    <h2>Welcome to WORD ASSEMBLY CAMPUS FELLOSHIP IFOV FORM</h2>
+    <p>Apply today and get access to free transportation, Feeding and Accomodation</p>
+    <button class="btn" id="applyBtn">Apply Now</button>
+  </div>
+</section>
+
+
+
+  <section class="about">
+    <div class="container">
+      <h3>About the Program</h3>
+      <p>
+        IFOV is a conference in Word Assembly where all churches under Word Assembly including campus felloships come together to serve God.     </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 W.A.C.F. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // JS for Apply Now button
+    document.getElementById("applyBtn").addEventListener("click", function () {
+      alert("Redirecting to application form...");
+      window.location.href = "apply.html";
+    });
+    // Hero Image Slider
+    const bg1 = document.getElementById("heroBg1");
+  const bg2 = document.getElementById("heroBg2");
+
+  const images = [
+    "url('DSC_6228.jpg')",
+    "url('DSC_2408.jpg')",
+    "url('DSC_2416.jpg')"
+  ];
+
+  let current = 0;
+  let showingBg1 = true;
+
+  function switchBackground() {
+    const next = (current + 1) % images.length;
+    const topBg = showingBg1 ? bg2 : bg1;
+    const bottomBg = showingBg1 ? bg1 : bg2;
+
+    topBg.style.backgroundImage = images[next];
+    topBg.style.opacity = 1;
+    bottomBg.style.opacity = 0;
+
+    showingBg1 = !showingBg1;
+    current = next;
+  }
+
+  // Initialize first background
+  bg1.style.backgroundImage = images[0];
+  bg1.style.opacity = 1;
+
+  setInterval(switchBackground, 5000);
+
+
+  
+  </script>
+</body>
+</html>
