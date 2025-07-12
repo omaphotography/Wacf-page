@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>APPLY - IFOV</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="icon" href="wacf.jpg" type="image/x-icon" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <h1 class="logo"></h1>
+      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo"></div>
+      <nav>
+        <ul>
+          <li><a href="index.html" >Home</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="apply.html" class="active">Apply</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <form id="applicationForm" action="https://formspree.io/f/xyzjrbee" method="POST" target="_top">
+  <section class="form-section">
+    <div class="form-box">
+      <h2>IFOV Application</h2>
+      <form id="applicationForm">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="number">Phone Number</label>
+          <input type="tel" id="number" placeholder="(000) 000-000" required />
+        </div>
+
+        <div class="form-group">
+          <label for="university">University</label>
+          <input type="text" id="university" required />
+        </div>
+
+
+
+
+        <div class="form-group">
+          <label for="passport">Upload Passport Photo</label>
+          <input type="file" id="passport" accept="image/*" required />
+        </div>
+
+        
+
+        <button type="submit" class="btn">Submit Application</button>
+      </form>
+    </div>
+  </section></form>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 W.A.C.F. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Application form validation
+    document.getElementById("applicationForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("fullname").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const university = document.getElementById("university").value.trim();
+      const course = document.getElementById("course").value.trim();
+      const level = document.getElementById("level").value;
+      const passport = document.getElementById("passport").files.length;
+      const cv = document.getElementById("cv").files.length;
+
+      if (!name || !email || !university || !course || !level || !passport || !cv) {
+        alert("Please fill in all fields and upload required documents.");
+        return;
+      }
+
+      alert("Application submitted successfully (demo only).");
+      // Redirect or reset form if needed
+      document.getElementById("applicationForm").reset();
+    });
+    const form = document.getElementById("applicationForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // prevent page reload
+  
+      const formData = new FormData(form);
+      const json = {};
+  
+      // Convert form data to JSON
+      formData.forEach((value, key) => {
+        json[key] = value;
+      });
+  
+      // Log the JSON to console
+      console.log("Application Submitted:", JSON.stringify(json));
+  
+      // OPTIONAL: You can now send this JSON to Firebase, Formspree Pro, or a server
+      alert("Form converted to JSON. Check your browser console.");
+    });
+  
+  
+  </script>
+</body>
+</html>

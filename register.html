@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>REGISTER- WACF</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="icon" href="wacf.jpg" type="image/x-icon" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <h1 class="logo"></h1>
+      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo"></div>
+      <nav>
+        <ul>
+          <li><a href="index.html" >Home</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="register.html" class="active">Register</a></li>
+          <li><a href="apply.html" >Apply</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="form-section">
+    <div class="form-box">
+      <h2>Create an Account</h2>
+      <form id="registerForm" action="https://formspree.io/f/xyzjrbee" method="POST" target="_top">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" placeholder="Enter your full name" name="fullname" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="Enter your phone number" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Create a password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="confirm">Confirm Password</label>
+          <input type="password" id="confirm" placeholder="Confirm your password" required />
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+        <p class="form-footer">
+          Already have an account? <a href="login.html">Login</a>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 W.A.C.F. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Password match validation
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("fullname").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm").value;
+
+      if (!name || !email || !phone || !password || !confirm) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (password !== confirm) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      // Simulate successful registration
+      alert("Registration successful! Redirecting to login...");
+      window.location.href = "login.html";
+    });
+    const form = document.getElementById("applicationForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // prevent page reload
+  
+      const formData = new FormData(form);
+      const json = {};
+  
+      // Convert form data to JSON
+      formData.forEach((value, key) => {
+        json[key] = value;
+      });
+  
+      // Log the JSON to console
+      console.log("Application Submitted:", JSON.stringify(json));
+  
+      // OPTIONAL: You can now send this JSON to Firebase, Formspree Pro, or a server
+      alert("Form converted to JSON. Check your browser console.");
+    });
+  
+  </script>
+</body>
+</html>
