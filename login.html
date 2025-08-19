@@ -3,26 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>W.A.C.F NATIONAL - Homepage</title>
+  <title>W.A.C.F NATIONAL - Login</title>
   <link rel="stylesheet" href="home.css" />
   <link rel="icon" href="wacf.jpg" type="image/x-icon" />
 </head>
 <body>
+
+  <!-- ✅ Loader Spinner -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p style="margin-top: 10px; font-weight: bold; color: #003366;">Logging in...</p>
+  </div>
+
   <header class="navbar">
     <div class="container">
-      <h1 class="logo"></h1>
-      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo"></div>
-      <nav>
+      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo" /></div>
+
+      <!-- ✅ Hamburger Menu Icon -->
+      <div class="menu-toggle" id="menuToggle">&#9776;</div>
+
+      <nav id="navbarLinks">
         <ul>
-          <li><a href="index.html" >Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="login.html" class="active">Login</a></li>
           <li><a href="register.html">Register</a></li>
           <li><a href="apply.html">Apply</a></li>
+          <li><a href="first-timer.html" >First Timer</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <form id="loginForm" action="https://formspree.io/f/xyzjrbee" method="POST" target="_top">
+
   <section class="form-section">
     <div class="form-box">
       <h2>Login</h2>
@@ -40,7 +51,7 @@
         <button type="submit" class="btn">Login</button>
         <p class="form-footer">
           Don't have an account? <a href="register.html">Register</a>
-        </p></form>
+        </p>
       </form>
     </div>
   </section>
@@ -51,10 +62,17 @@
     </div>
   </footer>
 
+  <!-- ✅ JavaScript -->
   <script>
-    // Handle login form submission
+    // ✅ Hide loader when page loads
+    window.addEventListener("load", function () {
+      document.getElementById("loader").style.display = "none";
+    });
+
+    // ✅ Login Form Validation with loader
     document.getElementById("loginForm").addEventListener("submit", function (e) {
       e.preventDefault();
+
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
@@ -63,30 +81,36 @@
         return;
       }
 
-      // Fake login (no backend yet)
-      alert("Login successful (demo only). Redirecting...");
-      window.location.href = "apply.html";
-    });
-    const form = document.getElementById("applicationForm");
+      document.getElementById("loader").style.display = "flex";
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // prevent page reload
-  
-      const formData = new FormData(form);
-      const json = {};
-  
-      // Convert form data to JSON
-      formData.forEach((value, key) => {
-        json[key] = value;
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        alert("✅ Login successful (demo only). Redirecting...");
+        window.location.href = "apply.html";
+      }, 2000); // simulate delay
+    });
+
+    // ✅ Mobile nav toggle and close
+    const toggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("navbarLinks");
+
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("active");
+    });
+
+    document.querySelectorAll("#navbarLinks a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("active");
       });
-  
-      // Log the JSON to console
-      console.log("Application Submitted:", JSON.stringify(json));
-  
-      // OPTIONAL: You can now send this JSON to Firebase, Formspree Pro, or a server
-      alert("Form converted to JSON. Check your browser console.");
     });
 
+    document.addEventListener("click", function (event) {
+      const isInsideMenu = menu.contains(event.target);
+      const isToggleBtn = toggle.contains(event.target);
+      if (!isInsideMenu && !isToggleBtn) {
+        menu.classList.remove("active");
+      }
+    });
   </script>
 </body>
 </html>
