@@ -1,46 +1,91 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>W.A.C.F NATIONAL - Homepage</title>
-  <link rel="stylesheet" href="home.css" />
+  <title>W.A.C.F NATIONAL – IFOV Application | Word Assembly Campus Fellowship</title>
+
+  <!-- Essential SEO -->
+  <meta name="description" content="Apply for IFOV with Word Assembly Campus Fellowship. Enjoy free transportation, 
+  feeding, and accommodation. Register and apply online." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://wacf-page.vercel.app/" />
+
+  <!-- Brand -->
+  <meta name="author" content="Word Assembly Campus Fellowship (W.A.C.F.)" />
+  <link rel="icon" href="https://wacf-page.vercel.app/wacf.jpg" type="image/x-icon" />
   <link rel="icon" href="wacf.jpg" type="image/x-icon" />
+
+  <!-- Open Graph (Facebook/WhatsApp) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="W.A.C.F NATIONAL – IFOV Application" />
+  <meta property="og:description" content="Apply for IFOV: free transportation, feeding, and accommodation." />
+  <meta property="og:url" content="https://wacf-page.vercel.app/" />
+  <meta property="og:image" content="https://wacf-page.vercel.app/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="W.A.C.F NATIONAL – IFOV Application" />
+  <meta name="twitter:description" content="Apply for IFOV with W.A.C.F." />
+  <meta name="twitter:image" content="https://wacf-page.vercel.app/og-image.jpg" />
+
+  <!-- (Optional) Ownership verification – replace content values after Search Console/BWT gives them to you -->
+  <!-- Google -->
+  <meta name="google-site-verification" content="PASTE_GOOGLE_TOKEN_HERE" />
+  <!-- Bing -->
+  <meta name="msvalidate.01" content="PASTE_BING_TOKEN_HERE" />
+
+  <!-- (Optional but good) Preload key hero images so they’re discovered fast -->
+  <link rel="preload" as="image" href="https://wacf-page.vercel.app/DSC_6228.jpg" />
+  <link rel="preload" as="image" href="https://wacf-page.vercel.app/DSC_2408.jpg" />
+  <link rel="preload" as="image" href="https://wacf-page.vercel.app/DSC_2416.jpg" />
+
+  <link rel="stylesheet" href="home.css" />
 </head>
+
 <body>
+
+  <!-- ✅ Loader Spinner -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p style="margin-top: 10px; font-weight: bold; color: #003366;">Loading...</p>
+  </div>
+
   <header class="navbar">
     <div class="container">
-      <h1 class="logo"></h1>
-      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo"></div>
-      <nav>
+      <div class="logo"><img src="wacf.png" alt="W.A.C.F Logo" /></div>
+
+      <!-- ✅ Hamburger Menu Icon -->
+      <div class="menu-toggle" id="menuToggle">&#9776;</div>
+
+      <nav id="navbarLinks">
         <ul>
           <li><a href="index.html" class="active">Home</a></li>
           <li><a href="login.html">Login</a></li>
           <li><a href="register.html">Register</a></li>
           <li><a href="apply.html">Apply</a></li>
+          <li><a href="first-timer.html" >First Timer</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <section class="hero">
-  <div class="hero-bg" id="heroBg1"></div>
-  <div class="hero-bg" id="heroBg2"></div>
-  <div class="hero-content">
-    <h2>Welcome to WORD ASSEMBLY CAMPUS FELLOSHIP IFOV FORM</h2>
-    <p>Apply today and get access to free transportation, Feeding and Accomodation</p>
-    <button class="btn" id="applyBtn">Apply Now</button>
-  </div>
-</section>
-
-
+    <div class="hero-bg" id="heroBg1"></div>
+    <div class="hero-bg" id="heroBg2"></div>
+    <div class="hero-content">
+      <h2>Welcome to WORD ASSEMBLY CAMPUS FELLOWSHIP IFOV FORM</h2>
+      <p>Apply today and get access to free transportation, feeding, and accommodation.</p>
+      <button class="btn" id="applyBtn">Apply Now</button>
+    </div>
+  </section>
 
   <section class="about">
     <div class="container">
       <h3>About the Program</h3>
       <p>
-        IFOV is a conference in Word Assembly where all churches under Word Assembly including campus felloships come together to serve God.     </p>
+        IFOV is a conference in Word Assembly where all churches under Word Assembly, including campus fellowships, come together to serve God.
+      </p>
     </div>
   </section>
 
@@ -50,46 +95,70 @@
     </div>
   </footer>
 
+  <!-- ✅ JavaScript -->
   <script>
-    // JS for Apply Now button
+    // ✅ Hide loader after page load
+    window.addEventListener("load", function () {
+      document.getElementById("loader").style.display = "none";
+    });
+
+    // ✅ Apply Now button redirect
     document.getElementById("applyBtn").addEventListener("click", function () {
       alert("Redirecting to application form...");
       window.location.href = "apply.html";
     });
-    // Hero Image Slider
+
+    // ✅ Hero background slider
     const bg1 = document.getElementById("heroBg1");
-  const bg2 = document.getElementById("heroBg2");
+    const bg2 = document.getElementById("heroBg2");
 
-  const images = [
-    "url('DSC_6228.jpg')",
-    "url('DSC_2408.jpg')",
-    "url('DSC_2416.jpg')"
-  ];
+    const images = [
+      "url('DSC_6228.jpg')",
+      "url('DSC_2408.jpg')",
+      "url('DSC_2416.jpg')"
+    ];
 
-  let current = 0;
-  let showingBg1 = true;
+    let current = 0;
+    let showingBg1 = true;
 
-  function switchBackground() {
-    const next = (current + 1) % images.length;
-    const topBg = showingBg1 ? bg2 : bg1;
-    const bottomBg = showingBg1 ? bg1 : bg2;
+    function switchBackground() {
+      const next = (current + 1) % images.length;
+      const topBg = showingBg1 ? bg2 : bg1;
+      const bottomBg = showingBg1 ? bg1 : bg2;
 
-    topBg.style.backgroundImage = images[next];
-    topBg.style.opacity = 1;
-    bottomBg.style.opacity = 0;
+      topBg.style.backgroundImage = images[next];
+      topBg.style.opacity = 1;
+      bottomBg.style.opacity = 0;
 
-    showingBg1 = !showingBg1;
-    current = next;
-  }
+      showingBg1 = !showingBg1;
+      current = next;
+    }
 
-  // Initialize first background
-  bg1.style.backgroundImage = images[0];
-  bg1.style.opacity = 1;
+    bg1.style.backgroundImage = images[0];
+    bg1.style.opacity = 1;
+    setInterval(switchBackground, 5000);
 
-  setInterval(switchBackground, 5000);
+    // ✅ Mobile menu toggle and auto-close
+    const toggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("navbarLinks");
 
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("active");
+    });
 
-  
+    document.querySelectorAll("#navbarLinks a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("active");
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      const isInsideMenu = menu.contains(event.target);
+      const isToggleBtn = toggle.contains(event.target);
+      if (!isInsideMenu && !isToggleBtn) {
+        menu.classList.remove("active");
+      }
+    });
   </script>
 </body>
 </html>
