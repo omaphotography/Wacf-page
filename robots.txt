@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wacf-page.vercel.app/sitemap.xml
