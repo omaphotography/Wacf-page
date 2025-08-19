@@ -8,59 +8,60 @@
   <link rel="icon" href="wacf.jpg" type="image/x-icon" />
 </head>
 <body>
+
+  <!-- ✅ Loader Spinner with Text -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p style="margin-top: 10px; font-weight: bold; color: #003366;">Submitting...</p>
+  </div>
+
   <header class="navbar">
     <div class="container">
-      <h1 class="logo"></h1>
       <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo"></div>
-      <nav>
+
+      <!-- ✅ Hamburger Menu Icon -->
+      <div class="menu-toggle" id="menuToggle">&#9776;</div>
+
+      <nav id="navbarLinks">
         <ul>
-          <li><a href="index.html" >Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="login.html">Login</a></li>
           <li><a href="register.html">Register</a></li>
           <li><a href="apply.html" class="active">Apply</a></li>
+          <li><a href="first-timer.html" >First Timer</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <form id="applicationForm" action="https://formspree.io/f/xyzjrbee" method="POST" target="_top">
+
   <section class="form-section">
     <div class="form-box">
       <h2>IFOV Application</h2>
       <form id="applicationForm">
         <div class="form-group">
           <label for="fullname">Full Name</label>
-          <input type="text" id="fullname" required />
+          <input type="text" id="fullname" name="fullName" required />
         </div>
 
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" required />
+          <input type="email" id="email" name="email" required />
         </div>
 
         <div class="form-group">
           <label for="number">Phone Number</label>
-          <input type="tel" id="number" placeholder="(000) 000-000" required />
+          <input type="tel" id="number" name="phone" placeholder="(000) 000-000" required />
         </div>
 
         <div class="form-group">
-          <label for="university">University</label>
-          <input type="text" id="university" required />
+          <label for="school">School</label>
+          <input type="text" id="school" name="school" required />
         </div>
-
-
-
-
-        <div class="form-group">
-          <label for="passport">Upload Passport Photo</label>
-          <input type="file" id="passport" accept="image/*" required />
-        </div>
-
-        
 
         <button type="submit" class="btn">Submit Application</button>
       </form>
     </div>
-  </section></form>
+  </section>
 
   <footer class="footer">
     <div class="container">
@@ -68,49 +69,65 @@
     </div>
   </footer>
 
+  <!-- ✅ Scripts -->
   <script>
-    // Application form validation
+    // Hide loader after page load
+    window.addEventListener("load", function () {
+      document.getElementById("loader").style.display = "none";
+    });
+
+    // Show loader on form submit
     document.getElementById("applicationForm").addEventListener("submit", function (e) {
       e.preventDefault();
+      document.getElementById("loader").style.display = "flex";
 
-      const name = document.getElementById("fullname").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const university = document.getElementById("university").value.trim();
-      const course = document.getElementById("course").value.trim();
-      const level = document.getElementById("level").value;
-      const passport = document.getElementById("passport").files.length;
-      const cv = document.getElementById("cv").files.length;
+      const data = {
+        fullName: document.getElementById("fullname").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("number").value.trim(),
+        school: document.getElementById("school").value.trim()
+      };
 
-      if (!name || !email || !university || !course || !level || !passport || !cv) {
-        alert("Please fill in all fields and upload required documents.");
-        return;
-      }
-
-      alert("Application submitted successfully (demo only).");
-      // Redirect or reset form if needed
-      document.getElementById("applicationForm").reset();
-    });
-    const form = document.getElementById("applicationForm");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // prevent page reload
-  
-      const formData = new FormData(form);
-      const json = {};
-  
-      // Convert form data to JSON
-      formData.forEach((value, key) => {
-        json[key] = value;
+      fetch("https://script.google.com/macros/s/AKfycbxqKJB9mdRnQcLMt_op7Uu_CnCvVDSLnQQcYyfv-68aCTqI_hzKgEZGxoARp4qzjzgO/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(res => {
+        document.getElementById("loader").style.display = "none";
+        alert("✅ Application submitted!");
+        document.getElementById("applicationForm").reset();
+      })
+      .catch(err => {
+        document.getElementById("loader").style.display = "none";
+        console.error("❌ Submission failed:", err);
+        alert("There was an error submitting your application.");
       });
-  
-      // Log the JSON to console
-      console.log("Application Submitted:", JSON.stringify(json));
-  
-      // OPTIONAL: You can now send this JSON to Firebase, Formspree Pro, or a server
-      alert("Form converted to JSON. Check your browser console.");
     });
-  
-  
+
+    // ✅ Toggle mobile dropdown menu
+    const toggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("navbarLinks");
+
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("active");
+    });
+
+    // ✅ Collapse menu when clicking a link
+    document.querySelectorAll("#navbarLinks a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("active");
+      });
+    });
+
+    // ✅ Collapse menu when clicking outside
+    document.addEventListener("click", function (event) {
+      const isClickInsideMenu = menu.contains(event.target);
+      const isClickOnToggle = toggle.contains(event.target);
+      if (!isClickInsideMenu && !isClickOnToggle) {
+        menu.classList.remove("active");
+      }
+    });
   </script>
 </body>
 </html>
