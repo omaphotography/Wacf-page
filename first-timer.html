@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FIRST TIMER - IFOV</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="icon" href="wacf.jpg" type="image/x-icon" />
+</head>
+<body>
+
+  <!-- ✅ Loader Spinner -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p style="margin-top: 10px; font-weight: bold; color: #003366;">Submitting...</p>
+  </div>
+
+  <header class="navbar">
+    <div class="container">
+      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo" /></div>
+
+      <div class="menu-toggle" id="menuToggle">&#9776;</div>
+
+      <nav id="navbarLinks">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="apply.html">Apply</a></li>
+          <li><a href="first-timer.html" class="active">First Timer</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="form-section">
+    <div class="form-box">
+      <h2>First Timer Form</h2>
+      <form id="applicationForm">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="number">Phone Number</label>
+          <input type="tel" id="number" name="phone" placeholder="(000) 000-000" required />
+        </div>
+
+        <div class="form-group">
+          <label for="school">School</label>
+          <input type="text" id="school" name="school" required />
+        </div>
+
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="text" id="dob" name="dob" placeholder="e.g. 12/07/2003" required />
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" placeholder="Residential address" required />
+        </div>
+
+        <button type="submit" class="btn">Submit Application</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 W.A.C.F. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ✅ JavaScript -->
+  <script>
+    // Hide loader on load
+    window.addEventListener("load", function () {
+      document.getElementById("loader").style.display = "none";
+    });
+
+    // Submit form to Google Sheets
+    document.getElementById("applicationForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.getElementById("loader").style.display = "flex";
+
+      const data = {
+        fullName: document.getElementById("fullname").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("number").value.trim(),
+        school: document.getElementById("school").value.trim(),
+        dob: document.getElementById("dob").value.trim(),
+        address: document.getElementById("address").value.trim()
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbxxaDGTWc0Wmb5mcuJrGRbae9nZSTw-HogZkMfYcaME4GCZOlBB3c2UcfWY7vIJgfU0xQ/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(res => {
+        document.getElementById("loader").style.display = "none";
+        alert("✅ Application submitted!");
+        document.getElementById("applicationForm").reset();
+      })
+      .catch(err => {
+        document.getElementById("loader").style.display = "none";
+        console.error("❌ Submission failed:", err);
+        alert("There was an error submitting your application.");
+      });
+    });
+
+    // Toggle mobile nav
+    const toggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("navbarLinks");
+
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("active");
+    });
+
+    document.querySelectorAll("#navbarLinks a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("active");
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      const isInside = menu.contains(event.target);
+      const isToggle = toggle.contains(event.target);
+      if (!isInside && !isToggle) {
+        menu.classList.remove("active");
+      }
+    });
+  </script>
+</body>
+</html>
