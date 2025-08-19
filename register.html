@@ -3,21 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>REGISTER- WACF</title>
+  <title>REGISTER - WACF</title>
   <link rel="stylesheet" href="home.css" />
   <link rel="icon" href="wacf.jpg" type="image/x-icon" />
 </head>
 <body>
+
+  <!-- ✅ LOADER SPINNER -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p style="margin-top: 10px; font-weight: bold; color: #003366;">Submitting...</p>
+  </div>
+
   <header class="navbar">
     <div class="container">
-      <h1 class="logo"></h1>
-      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo"></div>
-      <nav>
+      <div class="logo"><img src="wacf.png" alt="NNPCRAECJV2025 Logo" /></div>
+
+      <!-- ✅ Hamburger Menu Icon -->
+      <div class="menu-toggle" id="menuToggle">&#9776;</div>
+
+      <nav id="navbarLinks">
         <ul>
-          <li><a href="index.html" >Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="login.html">Login</a></li>
           <li><a href="register.html" class="active">Register</a></li>
-          <li><a href="apply.html" >Apply</a></li>
+          <li><a href="apply.html">Apply</a></li>
+          <li><a href="first-timer.html" >First Timer</a></li>
         </ul>
       </nav>
     </div>
@@ -26,20 +37,20 @@
   <section class="form-section">
     <div class="form-box">
       <h2>Create an Account</h2>
-      <form id="registerForm" action="https://formspree.io/f/xyzjrbee" method="POST" target="_top">
+      <form id="registerForm">
         <div class="form-group">
           <label for="fullname">Full Name</label>
-          <input type="text" id="fullname" placeholder="Enter your full name" name="fullname" required />
+          <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required />
         </div>
 
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="Enter your email" name="email" required />
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
         </div>
 
         <div class="form-group">
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="Enter your phone number" required />
+          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
         </div>
 
         <div class="form-group">
@@ -66,10 +77,17 @@
     </div>
   </footer>
 
+  <!-- ✅ JavaScript -->
   <script>
-    // Password match validation
+    // Hide loader on page load
+    window.addEventListener("load", function () {
+      document.getElementById("loader").style.display = "none";
+    });
+
+    // Form validation and loader
     document.getElementById("registerForm").addEventListener("submit", function (e) {
       e.preventDefault();
+      document.getElementById("loader").style.display = "flex";
 
       const name = document.getElementById("fullname").value.trim();
       const email = document.getElementById("email").value.trim();
@@ -78,39 +96,45 @@
       const confirm = document.getElementById("confirm").value;
 
       if (!name || !email || !phone || !password || !confirm) {
+        document.getElementById("loader").style.display = "none";
         alert("Please fill in all fields.");
         return;
       }
 
       if (password !== confirm) {
+        document.getElementById("loader").style.display = "none";
         alert("Passwords do not match.");
         return;
       }
 
-      // Simulate successful registration
-      alert("Registration successful! Redirecting to login...");
-      window.location.href = "login.html";
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        alert("✅ Registration successful! Redirecting to login...");
+        window.location.href = "login.html";
+      }, 1500);
     });
-    const form = document.getElementById("applicationForm");
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // prevent page reload
-  
-      const formData = new FormData(form);
-      const json = {};
-  
-      // Convert form data to JSON
-      formData.forEach((value, key) => {
-        json[key] = value;
-      });
-  
-      // Log the JSON to console
-      console.log("Application Submitted:", JSON.stringify(json));
-  
-      // OPTIONAL: You can now send this JSON to Firebase, Formspree Pro, or a server
-      alert("Form converted to JSON. Check your browser console.");
+    // Mobile nav toggle and collapse
+    const toggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("navbarLinks");
+
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("active");
     });
-  
+
+    document.querySelectorAll("#navbarLinks a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("active");
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      const isInsideMenu = menu.contains(event.target);
+      const isToggleBtn = toggle.contains(event.target);
+      if (!isInsideMenu && !isToggleBtn) {
+        menu.classList.remove("active");
+      }
+    });
   </script>
 </body>
 </html>
