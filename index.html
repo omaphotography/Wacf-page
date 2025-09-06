@@ -45,12 +45,6 @@
 
 <body>
 
-  <!-- ✅ Loader Spinner -->
-  <div id="loader">
-    <div class="spinner"></div>
-    <p style="margin-top: 10px; font-weight: bold; color: #003366;">Loading...</p>
-  </div>
-
   <header class="navbar">
     <div class="container">
       <div class="logo"><img src="wacf.png" alt="W.A.C.F Logo" /></div>
@@ -97,13 +91,6 @@
 
   <!-- ✅ JavaScript -->
   <script>
-    // ✅ Hide loader after 0.5 second (500ms)
-    window.addEventListener("load", function () {
-      setTimeout(() => {
-        document.getElementById("loader").style.display = "none";
-      }, 500);
-    });
-
     // ✅ Apply Now button redirect
     document.getElementById("applyBtn").addEventListener("click", function () {
       alert("Redirecting to application form...");
